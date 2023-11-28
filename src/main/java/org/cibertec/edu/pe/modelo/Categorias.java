@@ -19,7 +19,7 @@ public class Categorias {
     private String descripcion;
 
     
-    // Métodos Conttructores
+    // Métodos Constructores
 	public Categorias(int idcategoria, String descripcion) {
 		super();
 		this.idcategoria = idcategoria;

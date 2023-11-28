@@ -18,7 +18,7 @@ public class Tipos {
     private String descripcion;
     
     
- // Métodos Conttructores
+ // Métodos Constructores
 
 	public Tipos(int idtipo, String descripcion) {
 		super();
@@ -51,5 +51,3 @@ public class Tipos {
 
     
 }
-
-

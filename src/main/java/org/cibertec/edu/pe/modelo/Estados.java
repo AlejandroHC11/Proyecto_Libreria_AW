@@ -18,7 +18,7 @@ public class Estados {
     private String descripcion;
     
     
- // Métodos Conttructores
+ // Métodos Constructores
 	public Estados(int idestado, String descripcion) {
 		super();
 		this.idestado = idestado;

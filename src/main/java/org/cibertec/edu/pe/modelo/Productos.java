@@ -13,11 +13,13 @@ import javax.persistence.Table;
 @Table(name = "Productos")
 public class Productos {
 
-	
-	// Campos o atributos
+    // Campos o atributos
     @Id
     @Column(name = "idprod", nullable = false, length = 5)
-    private String idprod;
+    private int idprod;
+
+    @Column(name = "imagen")
+    private String imagen;
 
     @Column(name = "descripcion", length = 45)
     private String descripcion;
@@ -28,92 +30,102 @@ public class Productos {
     @Column(name = "precio", precision = 8, scale = 2)
     private BigDecimal precio;
 
-    @Column(name = "idcategoria")
-    private int idcategoria;
+    @ManyToOne
+    @JoinColumn(name = "idcategoria", referencedColumnName = "idcategoria")
+    private Categorias categoria;
 
     @Column(name = "estado")
     private boolean estado;
 
-    @ManyToOne
-    @JoinColumn(name = "idcategoria", referencedColumnName = "idcategoria", insertable = false, updatable = false)
-    private Categorias categoria;
 
-    
-    // Métodos Conttructores
-	public Productos(String idprod, String descripcion, int stock, BigDecimal precio, int idcategoria, boolean estado,
-			Categorias categoria) {
-		super();
+    // Métodos Constructores
+    public Productos(int idprod, String imagen, String descripcion, int stock, BigDecimal precio,
+			Categorias categoria, boolean estado) {
 		this.idprod = idprod;
+		this.imagen = imagen;
 		this.descripcion = descripcion;
 		this.stock = stock;
 		this.precio = precio;
-		this.idcategoria = idcategoria;
-		this.estado = estado;
 		this.categoria = categoria;
+		this.estado = estado;
+	}
+    
+
+    public Productos() {
 	}
 
-	public Productos() {
-		super();
-	}
-
-	
-	// Getter and Setter methods
-	public String getIdprod() {
+    // Getter and Setter methods
+	public int getIdprod() {
 		return idprod;
 	}
 
-	public void setIdprod(String idprod) {
+
+	public void setIdprod(int idprod) {
 		this.idprod = idprod;
 	}
+
+
+	public String getImagen() {
+		return imagen;
+	}
+
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
+
 
 	public String getDescripcion() {
 		return descripcion;
 	}
 
+
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
+
 
 	public int getStock() {
 		return stock;
 	}
 
+
 	public void setStock(int stock) {
 		this.stock = stock;
 	}
+
 
 	public BigDecimal getPrecio() {
 		return precio;
 	}
 
+
 	public void setPrecio(BigDecimal precio) {
 		this.precio = precio;
 	}
 
-	public int getIdcategoria() {
-		return idcategoria;
-	}
-
-	public void setIdcategoria(int idcategoria) {
-		this.idcategoria = idcategoria;
-	}
-
-	public boolean isEstado() {
-		return estado;
-	}
-
-	public void setEstado(boolean estado) {
-		this.estado = estado;
-	}
 
 	public Categorias getCategoria() {
 		return categoria;
 	}
 
+
 	public void setCategoria(Categorias categoria) {
 		this.categoria = categoria;
 	}
 
+
+	public boolean isEstado() {
+		return estado;
+	}
+
+
+	public void setEstado(boolean estado) {
+		this.estado = estado;
+	}
+
+
+    
     
     
     

@@ -49,7 +49,7 @@ import javax.persistence.Table;
 	    private Estados estado;
 
 	    
-	 // Métodos Conttructores
+	 // Métodos Constructores
 		public Usuarios(int codigo, String nombre, String apellido, String usuario, String clave, int edad, int tipo,
 				int estados, Tipos tipos, Estados estado) {
 			super();
