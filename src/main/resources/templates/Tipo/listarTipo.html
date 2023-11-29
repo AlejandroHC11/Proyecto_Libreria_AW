@@ -59,56 +59,44 @@ body {
 </style>
 <body>
 	<div class="container">
-    <form action="/buscar/Productos" method="get">
+    <form action="/buscarDescripcion/Tipos" method="get">
         <input type="text" class="top-input" name="descripcion" placeholder="Buscar por descripcion">       
         <button type="submit" class="green-button">Buscar</button>
     </form>
-    <button class="blue-button" onclick="window.location.href='/nuevo/Productos'">Nuevo Producto</button>
+    <button class="blue-button" onclick="window.location.href='/nuevo/Tipos'">Nuevo Tipo</button>
 </div>
    <table class="table table-responsive">
 					<thead class="table-primary">
 						<tr>
-							<th class="text-center">idProducto</th>
-							<th class="text-center">Imagen</th>
+							<th class="text-center">idTipo</th>
 							<th class="text-center">Descripcion</th>
-							<th class="text-center">Stock</th>
-							<th class="text-center">Precio</th>
-							<th class="text-center">Categoria</th>
-							<th class="text-center">Estado</th>
 							<th class="text-center">Acciones</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="d: ${productos}" class="align-middle">
-							<td class="text-center" th:text="${d.idprod}"></td>
-							<td class="text-center">
-                                <img th:src="${d.imagen}" alt="imagen" width="75">
-                            </td>
+						<tr th:each="d: ${tipos}" class="align-middle">
+							<td class="text-center" th:text="${d.idtipo}"></td>
 							<td class="text-center" th:text="${d.descripcion}"></td>
-							<td class="text-center" th:text="${d.stock}"></td>
-							<td class="text-center" th:text="${d.precio}"></td>
-							<td class="text-center" th:text="${d.categoria.descripcion}"></td>
-							<td class="text-center" th:text="${d.estado ? 'Activo' : 'Inactivo'}"></td>
 							
 							
 							<td class="text-center">
-								<a class="btn btn-sm btn-success" th:href="@{/modificar/Productos/} + ${d.idprod}">Modificar</a>
-								<a class="btn btn-sm btn-danger" th:attr="onclick=|confirmDelete(${d.idprod})|" >Eliminar</a>
+								<a class="btn btn-sm btn-success" th:href="@{/modificar/Tipos/} + ${d.idtipo}">Modificar</a>
+								<a class="btn btn-sm btn-danger" th:attr="onclick=|confirmDelete(${d.idtipo})|" >Eliminar</a>
 							</td>
 						</tr>
 					</tbody>
 				</table>				
 				<div>
 					<button id="btnAnterior" class="btn btn-primary" onclick="anterior()">Anterior</button>				
-            		<button id="btnSiguiente" th:if="${#lists.size(productos) >= 5}" class="btn btn-primary" onclick="siguiente()">Siguiente</button>
+            		<button id="btnSiguiente" th:if="${#lists.size(tipos) >= 5}" class="btn btn-primary" onclick="siguiente()">Siguiente</button>
         		</div>
     </div>
 </body>
 <script>
 function confirmDelete(id) {
-    var result = window.confirm("¿Estás seguro de que deseas eliminar este producto?");
+    var result = window.confirm("¿Estás seguro de que deseas eliminar este tipo?");
     if (result) {
-        window.location.href = "/eliminar/Productos/" + id;
+        window.location.href = "/eliminar/Tipos/" + id;
     }
 }
 function anterior() {
@@ -120,14 +108,14 @@ function anterior() {
 		}else{
 			var paginaAnterior = parseInt(paginaActual) -1;
 		}		
-        window.location.href = "/listar/Productos/"+paginaAnterior;
+        window.location.href = "/listar/Tipos/"+paginaAnterior;
     }
 function siguiente() {
 		var urlActual = window.location.href;
 		var partesURL = urlActual.split("/");
 		var paginaActual = partesURL[partesURL.length - 1];
 		var paginaSiguiente = parseInt(paginaActual) + 1;
-        window.location.href = "/listar/Productos/"+paginaSiguiente;
+        window.location.href = "/listar/Tipos/"+paginaSiguiente;
     }
 function esNumero(valor) {
     return /^\d+$/.test(valor);

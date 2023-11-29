@@ -9,10 +9,10 @@
 <body>
     <div class="container mt-5">
         <h2>Agregar Nuevo Producto</h2>
-        <form action="/guardar/Productos" method="post">
+        <form action="/guardarProducto" method="post">
 			<div class="mb-3">
                 <label for="idprod" class="form-label">idProducto:</label>
-                <input type="text" class="form-control" id="idprod" name="idprod" required>
+                <input type="text" class="form-control" id="idprod" name="idprod" th:value="${ultimoId}" readonly required>
             </div>
 			<div class="mb-3">
                 <label for="imagen" class="form-label">Link de Imagen:</label>

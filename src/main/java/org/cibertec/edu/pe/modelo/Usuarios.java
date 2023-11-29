@@ -2,8 +2,6 @@ package org.cibertec.edu.pe.modelo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -15,7 +13,6 @@ import javax.persistence.Table;
 
 	// Campos o atributos
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "codigo")
 	    private int codigo;
 
@@ -34,46 +31,32 @@ import javax.persistence.Table;
 	    @Column(name = "edad", nullable = false)
 	    private int edad;
 
-	    @Column(name = "tipo", columnDefinition = "int default 2")
-	    private int tipo;
-
-	    @Column(name = "estado", columnDefinition = "int default 1")
-	    private int estados;
-
 	    @ManyToOne
-	    @JoinColumn(name = "tipo", referencedColumnName = "idtipo", insertable = false, updatable = false)
-	    private Tipos tipos;
-
+	    @JoinColumn(name = "tipo", referencedColumnName = "idtipo")
+	    private Tipos tipo;
+	    
 	    @ManyToOne
-	    @JoinColumn(name = "estado", referencedColumnName = "idestado", insertable = false, updatable = false)
+	    @JoinColumn(name = "estado", referencedColumnName = "idestado")
 	    private Estados estado;
 
 	    
-	 // Métodos Constructores
-		public Usuarios(int codigo, String nombre, String apellido, String usuario, String clave, int edad, int tipo,
-				int estados, Tipos tipos, Estados estado) {
-			super();
+	 // Métodos Constructores		
+	    public Usuarios(int codigo, String nombre, String apellido, String usuario, String clave, int edad, Tipos tipos,
+				Estados estados) {
 			this.codigo = codigo;
 			this.nombre = nombre;
 			this.apellido = apellido;
 			this.usuario = usuario;
 			this.clave = clave;
 			this.edad = edad;
-			this.tipo = tipo;
-			this.estados = estados;
-			this.tipos = tipos;
-			this.estado = estado;
+			this.tipo = tipos;
+			this.estado = estados;
 		}
-		
-		
+				
 		public Usuarios() {
-			super();
 		}
-		
-		
-		
-		// Propiedades de Lectura y Escritura
 
+		// Propiedades de Lectura y Escritura
 		public int getCodigo() {
 			return codigo;
 		}
@@ -122,28 +105,12 @@ import javax.persistence.Table;
 			this.edad = edad;
 		}
 
-		public int getTipo() {
+		public Tipos getTipo() {
 			return tipo;
 		}
 
-		public void setTipo(int tipo) {
+		public void setTipo(Tipos tipo) {
 			this.tipo = tipo;
-		}
-
-		public int getEstados() {
-			return estados;
-		}
-
-		public void setEstados(int estados) {
-			this.estados = estados;
-		}
-
-		public Tipos getTipos() {
-			return tipos;
-		}
-
-		public void setTipos(Tipos tipos) {
-			this.tipos = tipos;
 		}
 
 		public Estados getEstado() {
@@ -153,9 +120,9 @@ import javax.persistence.Table;
 		public void setEstado(Estados estado) {
 			this.estado = estado;
 		}
-		
-		
-	    
-	    
 
+
+		
+
+		
 }
