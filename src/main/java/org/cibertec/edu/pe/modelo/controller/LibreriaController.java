@@ -2,7 +2,6 @@ package org.cibertec.edu.pe.modelo.controller;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 
 import org.cibertec.edu.pe.modelo.Categorias;
 import org.cibertec.edu.pe.modelo.Productos;
@@ -45,44 +44,37 @@ public class LibreriaController {
 	private IEstadosRepository estadoRepository;
 
 	//Index redireccion
-	@GetMapping("index")
-	public String index(Model model) {	    
-	    //Ultima pagina
-		int lastPagSize = 6;
-	    Page<Productos> modelPage = productoRepository.findAll(PageRequest.of(0, lastPagSize));
-	    int totalPages = modelPage.getTotalPages();
-	    Page<Productos> lastPage = productoRepository.findAll(PageRequest.of(totalPages - 1, lastPagSize));
-	    List<Productos> modelList = lastPage.getContent();
-	    model.addAttribute("productosNuevos", modelList);
-	    // Pagina Random
-	    int randPagSize = 3;
-	    long totalProducts = productoRepository.count();
-	    Random random = new Random();
-	    int randomPageNumber = random.nextInt((int) Math.ceil((double) totalProducts / randPagSize));
-	    Page<Productos> randomPage = productoRepository.findAll(PageRequest.of(randomPageNumber, randPagSize));	    
-	    List<Productos> randomProducts = randomPage.getContent();
-	    model.addAttribute("productosRandom", randomProducts);
-	    return "index";
+	@GetMapping("inicio")
+	public String index() {	    
+	    return "inicio";
+	}
+	@GetMapping("contactenos")
+	public String contactenos() {	    
+	    return "contactenos";
+	}
+	@GetMapping("tienda")
+	public String tienda() {	    
+	    return "tienda";
 	}
 	@GetMapping({"/listar/","/listar"})
 	public String listarRed() {
-		return "redirect:/index";
+		return "redirect:/inicio";
 	}
 	@GetMapping({"/buscar/","/buscar"})
 	public String buscarRed() {
-		return "redirect:/index";
+		return "redirect:/inicio";
 	}
 	@GetMapping({"/nuevo/","/nuevo"})
 	public String nuevoRed() {
-		return "redirect:/index";
+		return "redirect:/inicio";
 	}
 	@GetMapping({"/modificar/","/modificar"})
 	public String modificarRed() {
-		return "redirect:/index";
+		return "redirect:/inicio";
 	}
 	@GetMapping({"/eliminar/","/eliminar"})
 	public String eliminarRed() {
-		return "redirect:/index";
+		return "redirect:/inicio";
 	}
 	//Listar
 	@GetMapping("/listar/{clase}/{pagina}")
@@ -114,7 +106,7 @@ public class LibreriaController {
 		    model.addAttribute("estados", modelList);
 		    return "./Estado/listarEstado";
 	    }else {
-	        return "redirect:/index";
+	        return "redirect:/inicio";
 	    }
 	}
 	//Buscar
@@ -157,7 +149,7 @@ public class LibreriaController {
 		    model.addAttribute("estados", lista);
 		    return "./Estado/listarEstado";
 		}else {
-	        return "redirect:/index";
+	        return "redirect:/inicio";
 	    }		
 	}
 	@GetMapping("/buscarUsuario/{clase}")
@@ -172,7 +164,7 @@ public class LibreriaController {
 		    model.addAttribute("usuarios", lista);
 		    return "./Usuario/listarUsuario";
 		}else {
-	        return "redirect:/index";
+	        return "redirect:/inicio";
 	    }		
 	}
 	//NuevoProducto
@@ -201,11 +193,11 @@ public class LibreriaController {
 	        model.addAttribute("ultimoId", ultimoId+1);
 	        return "./Tipo/nuevoTipo";
 		}else if (clase.equals("Estados")) {	
-			Long ultimoId = tipoRepository.ultimoId();
+			Long ultimoId = estadoRepository.ultimoId();
 	        model.addAttribute("ultimoId", ultimoId+1);
 	        return "./Estado/nuevoEstado";
 		}else {
-	        return "redirect:/index";
+	        return "redirect:/inicio";
 	    }   
     }
 	//Modificar
@@ -276,7 +268,7 @@ public class LibreriaController {
 		        return "redirect:/listar/Estados/1";
 		    }
 		}else {
-	        return "redirect:/index";
+	        return "redirect:/inicio";
 	    } 		
 	}
 	//Guardar
@@ -349,7 +341,7 @@ public class LibreriaController {
 			}
 		    return "redirect:/listar/Estados/1";
 		}else {
-	        return "redirect:/index";
+	        return "redirect:/inicio";
 	    } 		
 	}	
 	

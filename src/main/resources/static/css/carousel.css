@@ -1,0 +1,129 @@
+html {
+    background-color: #222;
+}
+
+body {
+    font-family: 'PT Sans Narrow', sans-serif;
+}
+
+#myCarousel img {
+    width: 100%;
+
+}
+
+.carousel-caption {
+    top: 56%;
+}
+
+.carousel-caption p {
+    margin-bottom: 10px;
+}
+
+.carousel-caption .first {
+    position: relative;
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-size: 15px;
+    padding: 8px 0;
+    top: -140px;
+    left: 0;
+    width: 200px;
+    border: 1px solid #00796B;
+    color: #E0F2F1;
+    text-shadow: 0px 1px 1px #000;
+    background: rgba(0, 121, 107, 0.7);
+}
+
+.carousel-caption .second {
+    position: relative;
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-size: 15px;
+    padding: 8px 0;
+    top: -140px;
+    left: -0px;
+    width: 360px;
+    border: 1px solid #F9A825;
+    color: #FFFDE7;
+    background: rgba(251, 192, 45, .8);
+}
+
+.carousel-caption .third {
+    position: relative;
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-size: 15px;
+    padding: 8px 0;
+    top: -140px;
+    left: -0px;
+    width: 275px;
+    border: 1px solid #D84315;
+    color: #FFFDE7;
+    background: rgba(230, 74, 25, .7);
+}
+
+.carousel-caption .fourth {
+    position: relative;
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-size: 15px;
+    padding: 8px 0;
+    top: -140px;
+    left: -0px;
+    width: 180px;
+    border: 1px solid #1565C0;
+    color: #FFFDE7;
+    background: rgba(25, 118, 210, .8);
+}
+
+
+
+.magictime {
+    -webkit-animation-duration: 1.2s;
+    -moz-animation-duration: 1.2s;
+    -o-animation-duration: 1.2s;
+    animation-duration: 1.2s;
+}
+
+.tinRightIn {
+    -webkit-animation-name: tinRightIn;
+    animation-name: tinRightIn;
+}
+
+@-webkit-keyframes tinRightIn {
+    0% {
+        opacity: 0;
+        -webkit-transform: scale(1, 1) translateX(900%);
+    }
+
+    50%,
+    70%,
+    90% {
+        opacity: 1;
+        -webkit-transform: scale(1.1, 1.1) translateX(0);
+    }
+
+    60%,
+    80%,
+    100% {
+        opacity: 1;
+        -webkit-transform: scale(1, 1) translateX(0);
+    }
+}
+
+@keyframes tinRightIn {
+    0% {
+        opacity: 0;
+        transform: scale(1, 1) translateX(900%);
+    }
+
+    50%,
+    70%,
+    90% {
+        opacity: 1;
+        transform: scale(1.1, 1.1) translateX(0);
+    }
+
+    60%,
+    80%,
+    100% {
+        opacity: 1;
+        transform: scale(1, 1) translateX(0);
+    }
+}

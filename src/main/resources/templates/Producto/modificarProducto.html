@@ -32,10 +32,15 @@
             </div>
             <div class="mb-3">
                 <label for="categoria" class="form-label">Categoria:</label>
-                <select class="form-select" id="categoria" name="categoria" required>
-    				<option value="" disabled selected>Selecciona categoria</option>
-    				<option th:each="categoria : ${categorias}" th:value="${categoria.idcategoria}" th:text="${categoria.descripcion}" th:selected="${categoria.idcategoria eq producto.categoria.idcategoria}"></option>
-				</select>
+                <div class="input-group">
+                    <select class="form-select" id="categoria" name="categoria" required>
+                        <option value="" disabled selected>Selecciona categoria</option>
+                        <option th:each="categoria : ${categorias}" th:value="${categoria.idcategoria}" th:text="${categoria.descripcion}" th:selected="${categoria.idcategoria eq producto.categoria.idcategoria}"></option>
+                    </select>
+                    <div class="input-group-append">
+                        <a href="/listar/Categorias/1" class="btn btn-secondary">Ver Categorias</a>
+                    </div>
+                </div>
             </div>
             <div class="mb-3">
                 <label for="estado" class="form-label">Estado:</label>

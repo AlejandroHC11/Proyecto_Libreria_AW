@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio | Libreria</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/css/navbar.css">
+    <link rel="stylesheet" type="text/css" href="/css/carousel.css">
+    <link rel="stylesheet" type="text/css" href="/css/footer.css">
+</head>
+<style>
+    .index-title {
+        margin-bottom: 20px;
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 4em;
+    }
+
+    /* Estilos adicionales */
+    .card {
+        border: none;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+    }
+
+    /* Estilos para ajustar el tamaño de las imágenes */
+    .card-img-top {
+        height: 550px;
+        /* Establece la altura deseada para las imágenes */
+        object-fit: cover;
+        /* Ajusta la imagen manteniendo su relación de aspecto */
+    }
+
+    .box-shadow {
+        box-shadow: inset 10px 10px 8px -10px #CCC, inset -10px -10px 8px -10px #CCC;
+    }
+
+    .content-box-wrapper .content-box h4 {
+        font-weight: 500;
+    }
+
+    .content-box-wrapper .content-box p {
+        color: #777;
+        font-size: 18px;
+        text-align: center;
+    }
+
+    .content-box {
+        text-align: center;
+        padding: 15px;
+        height: 100%;
+        border-radius: 4px;
+        -webkit-transition: all 0.3s ease 0s;
+        -moz-transition: all 0.3s ease 0s;
+        transition: all 0.3s ease 0s;
+    }
+
+    .content-box:hover {
+        background: #fff;
+        box-shadow: 2px 2px 15px 0 rgba(135, 135, 135, 0.4);
+        transition: all 0.5s ease 0s;
+    }
+
+    .content-box .finbyz-icon img {
+        height: 85px;
+    }
+
+    .content-box .finbyz-icon {
+        margin: 0 auto;
+    }
+
+
+
+    hr.lines {
+        margin: auto;
+        width: 100px;
+        position: relative;
+        border-top: 2px solid #0071bc;
+        margin-top: 15px;
+    }
+
+    hr.lines:before {
+        position: absolute;
+        content: "";
+        display: inline-block;
+        height: 20px;
+        width: 20px;
+        top: -11px;
+        border: 6px solid #D6D8FF;
+        border-radius: 50%;
+        background: #0071bc;
+        left: 40px;
+        animation: pulse 2s infinite;
+    }
+
+    /* pules effect */
+    @-webkit-keyframes pulse {
+        0% {
+            -webkit-box-shadow: 0 0 0 0 rgba(70, 118, 250, 0.4);
+        }
+
+        70% {
+            -webkit-box-shadow: 0 0 0 20px rgba(70, 118, 250, 0);
+        }
+
+        100% {
+            -webkit-box-shadow: 0 0 0 0 rgba(70, 118, 250, 0);
+        }
+    }
+
+    @keyframes pulse {
+        0% {
+            -moz-box-shadow: 0 0 0 0 rgba(70, 118, 250, 0.4);
+            box-shadow: 0 0 0 0 rgba(70, 118, 250, 0.4);
+        }
+
+        70% {
+            -moz-box-shadow: 0 0 0 20px rgba(70, 118, 250, 0);
+            box-shadow: 0 0 0 20px rgba(70, 118, 250, 0);
+        }
+
+        100% {
+            -moz-box-shadow: 0 0 0 0 rgba(70, 118, 250, 0);
+            box-shadow: 0 0 0 0 rgba(70, 118, 250, 0);
+        }
+    }
+
+    .card-body .card-text{
+        font-size: 2em;
+    }
+
+    .card-footer .text-muted{
+        font-size: 1.5em;
+    }
+</style>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: black;">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="tienda.html">Solo para fumadores</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/inicio">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/tienda">Tienda</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Mantenimiento
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/listar/Productos/1">Libros</a></li>
+                            <li><a class="dropdown-item" href="/listar/Usuarios/1">Usuarios</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li class="nav-item dropend">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    Reportes
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="reporteLibros.html">Libros</a></li>
+                                    <li><a class="dropdown-item" href="reporteLibrosXCategoria.html">Libros por categoria</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contactenos">Contactenos</a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+
+    <h1 class="h1 index-title text-center">BIENVENIDOS A NUESTRA LIBRERIA</h1>
+
+    <div class="carousel slide" id="myCarousel" data-ride="carousel">
+
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+        </ol>
+
+        <div class="carousel-inner">
+
+            <div class="item active">
+                <img src="https://pbs.twimg.com/media/Fn-sIc0WQAI8yXb.jpg" alt="">
+            </div>
+
+            <div class="item">
+                <img src="https://www.casadelaliteratura.gob.pe/wp-content/uploads/2023/10/Afiche-web.jpg" alt="">
+
+            </div>
+
+            <div class="item">
+                <img src="https://www.ieem.edu.uy/img/noticias/68/02.jpg" alt="">
+
+            </div>
+        </div>
+        <!-- Carousel nav -->
+        <a class="carousel-control left" href="#myCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="carousel-control right" href="#myCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+    </div>
+    </div>
+
+    <div class="container">
+        <h2 align="center"><a href="#"><u>Visita nuestra tienda</u></a></h2>
+
+    </div>
+    <div class="mt-50 box-shadow pt-50 pb-50">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h2>¿Qué hace de nosotros <span class="t-blue">la mejor libreria del Perú</span>?</h2>
+                    <hr class="lines pb-4 finbyz-zoomin" style="transform: matrix(1, 0, 0, 1, 0, 0);">
+                </div>
+            </div>
+            <div class="row content-box-wrapper">
+                <div class="col-md-4 mt-10">
+                    <div class="content-box text-center finbyz-fadeinup"
+                        style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);">
+                        <div class="finbyz-icon finbyz-zoomin" style="transform: matrix(1, 0, 0, 1, 0, 0);">
+                            <img alt="Identify financial risk"
+                                src="https://cdn-icons-png.flaticon.com/512/9453/9453183.png"
+                                title="Identify financial risk">
+                        </div>
+                        <h4>Tenemos el catalogo más variado del mercado</h4>
+                        <p>Contamos con libros desde Verne hasta Pablo Neruda</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mt-10">
+                    <div class="content-box text-center finbyz-fadeinup"
+                        style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);">
+                        <div class="finbyz-icon finbyz-zoomin" style="transform: matrix(1, 0, 0, 1, 0, 0);"><img
+                                alt="Treasury Policy" src="https://cdn-icons-png.flaticon.com/512/4151/4151413.png"
+                                title="Treasury Policy"></div>
+                        <h4>Experiencia de Usuario Optimizada</h4>
+                        <p>Plataforma intuitiva, fácil de navegar y utilizar</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mt-10">
+                    <div class="content-box text-center finbyz-fadeinup"
+                        style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);">
+                        <div class="finbyz-icon finbyz-zoomin" style="transform: matrix(1, 0, 0, 1, 0, 0);"><img
+                                alt="Fx Market Information"
+                                src="   https://cdn-icons-png.flaticon.com/512/6204/6204239.png "
+                                title="Fx Market Information"></div>
+                        <h4>Información y Reseñas de los Libros</h4>
+                        <p>Reseñas claves de nuestros expertos al alcance de tu mano</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mt-10">
+                    <div class="content-box text-center finbyz-fadeinup"
+                        style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);">
+                        <div class="finbyz-icon finbyz-zoomin" style="transform: matrix(1, 0, 0, 1, 0, 0);"><img
+                                alt="Unbiased Advice" src="   https://cdn-icons-png.flaticon.com/512/9561/9561978.png "
+                                title="Unbiased Advice"></div>
+                        <h4>Envíos y Servicio al Cliente </h4>
+                        <p>¡Por tu primera compra, te enviamos el delivery gratis!</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mt-10">
+                    <div class="content-box text-center finbyz-fadeinup"
+                        style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);">
+                        <div class="finbyz-icon finbyz-zoomin" style="transform: matrix(1, 0, 0, 1, 0, 0);"><img
+                                alt="Expertise in derivatives"
+                                src="   https://cdn-icons-png.flaticon.com/512/1831/1831655.png "
+                                title="Expertise in derivatives"></div>
+                        <h4>Promociones y Descuentos</h4>
+                        <p>Descuentos a la orden del dia</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mt-10">
+                    <div class="content-box text-center finbyz-fadeinup"
+                        style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);">
+                        <div class="finbyz-icon finbyz-zoomin" style="transform: matrix(1, 0, 0, 1, 0, 0);"><img
+                                alt="Stress Testing" src="   https://cdn-icons-png.flaticon.com/512/2170/2170765.png "
+                                title="Stress Testing"></div>
+                        <h4>Comunidad</h4>
+                        <p>Contamos con una comunidad activa en toda la region</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sección de Libros -->
+    <div class="container mt-4">
+        <h2>Nuestros Libros Destacados</h2>
+        <div class="row mt-3">
+            <!-- Libros -->
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="https://www.planetadelibros.com.pe/usuaris/libros/fotos/303/m_libros/302870_46378_1_LitumaenlosAndes.jpg"
+                        class="card-img-top" alt="Lituma en los Andes">
+                    <div class="card-body">
+                        <h5 class="card-title">Lituma en los Andes</h5>
+                        <p class="card-text">Mario Vargas Llosa</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Repetir para otros libros -->
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="https://images.cdn2.buscalibre.com/fit-in/360x360/88/8d/888dc47e47593df481f3e4824c1de827.jpg"
+                        class="card-img-top" alt="Conversación en la Catedral">
+                    <div class="card-body">
+                        <h5 class="card-title">Conversación en la Catedral</h5>
+                        <p class="card-text">Mario Vargas Llosa</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Repetir para más libros -->
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="https://www.rae.es/sites/default/files/la_ciudad_y_los_perros.jpg" class="card-img-top"
+                        alt="La Ciudad y los Perros">
+                    <div class="card-body">
+                        <h5 class="card-title">La Ciudad y los Perros</h5>
+                        <p class="card-text">Mario Vargas Llosa</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="https://estruendomudo.pe/imagenes/9786124/978612437933.JPG" class="card-img-top"
+                        alt="Una tentación sin ley">
+                    <div class="card-body">
+                        <h5 class="card-title">La palabra del mudo</h5>
+                        <p class="card-text">Julio Ramon Ribeyro</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Libro 5 -->
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="https://www.lancomperu.com/imagenes/9786124/978612434935.GIF" class="card-img-top"
+                        alt="Una tentación sin ley">
+                    <div class="card-body">
+                        <h5 class="card-title">Los Inocentes</h5>
+                        <p class="card-text">Oswaldo Reynoso</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Libro 6 -->
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="https://images.cdn2.buscalibre.com/fit-in/360x360/30/57/3057e792c1953b16740975d6fa56664f.jpg"
+                        class="card-img-top" alt="La sombra del viento">
+                    <div class="card-body">
+                        <h5 class="card-title">La sombra del viento</h5>
+                        <p class="card-text">Carlos Ruiz Zafón</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <!-- ... -->
+            </div>
+            <!-- ... -->
+        </div>
+    </div>
+
+    <!-- Sección de Opiniones de Clientes -->
+    <div class="container mt-5">
+        <h2>Opiniones de Nuestros Clientes</h2>
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <p class="card-text">"Excelente servicio, encontré el libro que buscaba y la entrega fue
+                            rápida."</p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">Ana García</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <p class="card-text">"Una gran variedad de libros y el proceso de compra fue muy sencillo."</p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">Juan Martínez</small>
+                    </div>
+                </div>
+            </div>
+            <!-- Repetir para otras opiniones -->
+            <!-- ... -->
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <p class="card-text">"Servicio al cliente excepcional, ¡definitivamente volveré a comprar!"</p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">Carolina López</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <p class="card-text">"Fácil de navegar y encontrar lo que buscaba, ¡muy recomendado!"</p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">Luis Rodríguez</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">Libreria Solo para fumadores <strong>2023 - Derechos reservados</strong>.</div>
+
+        <script>
+            $(document).ready(function () {
+                $(".carousel").carousel({
+
+                });
+
+            });
+        </script>
+</body>
+
+</html>
