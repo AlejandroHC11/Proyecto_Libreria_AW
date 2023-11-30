@@ -10,4 +10,6 @@ public interface IProductosRepository extends JpaRepository<Productos, Integer>	
 	List<Productos> findByDescripcion(String descripcion);
 	@Query("SELECT MAX(p.idprod) FROM Productos p")
     Long ultimoId();
+	@Query("SELECT p FROM Productos p WHERE p.categoria.idcategoria = :idcategoria")
+	List<Productos> findByIdCategoria(int idcategoria);
 }

@@ -1,19 +1,31 @@
 package org.cibertec.edu.pe.modelo.controller;
 
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
+import javax.servlet.http.HttpSession;
+
 import org.cibertec.edu.pe.modelo.Categorias;
-import org.cibertec.edu.pe.modelo.Productos;
-import org.cibertec.edu.pe.modelo.Usuarios;
-import org.cibertec.edu.pe.modelo.Tipos;
 import org.cibertec.edu.pe.modelo.Estados;
+import org.cibertec.edu.pe.modelo.Productos;
+import org.cibertec.edu.pe.modelo.Tipos;
+import org.cibertec.edu.pe.modelo.Usuarios;
+import org.cibertec.edu.pe.modelo.DetalleBoleta;
+import org.cibertec.edu.pe.modelo.Boletas;
+import org.cibertec.edu.pe.repository.IBoletaRepository;
 import org.cibertec.edu.pe.repository.ICategoriasRepository;
 import org.cibertec.edu.pe.repository.IEstadosRepository;
 import org.cibertec.edu.pe.repository.IProductosRepository;
 import org.cibertec.edu.pe.repository.ITiposRepository;
 import org.cibertec.edu.pe.repository.IUsuariosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,9 +36,28 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
+
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @Controller
+@SessionAttributes({"carrito","total"})
 public class LibreriaController {
+	// Inicializacion del objeto carrito
+	@ModelAttribute("carrito")
+	public List<DetalleBoleta> getCarrito(){
+		return new ArrayList<>();
+	}
+	// Inicializacion del objeto total
+	@ModelAttribute("total")
+	public BigDecimal getTotal() {
+		return new BigDecimal(0);
+	}
 	
 	@Autowired
 	private IProductosRepository productoRepository;
@@ -43,18 +74,43 @@ public class LibreriaController {
 	@Autowired
 	private IEstadosRepository estadoRepository;
 
+	@Autowired
+	private IBoletaRepository boletaRepository;
+	
 	//Index redireccion
-	@GetMapping("inicio")
-	public String index() {	    
+	@GetMapping("/inicio")
+	public String inicio(HttpSession session) {
+		String nombreUsuario = (String) session.getAttribute("nombreUsuario");
+	    if (nombreUsuario == null) {
+	        return "redirect:/login";
+	    }
 	    return "inicio";
 	}
-	@GetMapping("contactenos")
+	@GetMapping("/")
+    public String inicioRed() {
+        return "redirect:/login";
+    }
+	@GetMapping("/contactenos")
 	public String contactenos() {	    
 	    return "contactenos";
 	}
-	@GetMapping("tienda")
-	public String tienda() {	    
+	@GetMapping("/tienda")
+	public String tienda(Model model,HttpSession session) {
+		String nombreUsuario = (String) session.getAttribute("nombreUsuario");
+	    if (nombreUsuario == null) {
+	        return "redirect:/login";
+	    }
+		List<Productos> productosList = productoRepository.findAll();
+        model.addAttribute("productos", productosList);
 	    return "tienda";
+	}
+	@GetMapping("/carrito")
+	public String carrito(HttpSession session) {
+		String nombreUsuario = (String) session.getAttribute("nombreUsuario");
+	    if (nombreUsuario == null) {
+	        return "redirect:/login";
+	    }
+	    return "carrito";
 	}
 	@GetMapping({"/listar/","/listar"})
 	public String listarRed() {
@@ -343,6 +399,170 @@ public class LibreriaController {
 		}else {
 	        return "redirect:/inicio";
 	    } 		
-	}	
-	
+	}
+	//Reportes
+	@GetMapping("/reporteLibros")
+	public String reporteLibros(Model model) {
+		try {
+            // Cargar el informe JRXML y compilarlo
+            ClassPathResource resource = new ClassPathResource("static/reporteLibros.jrxml");
+            JasperReport jasperReport = JasperCompileManager.compileReport(resource.getInputStream());
+
+            // Obtener datos
+            List<Productos> productos = productoRepository.findAll();
+
+            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(productos);
+
+            // Parametros para el informe
+            Map<String, Object> params = new HashMap<>();
+
+            // Generar el informe
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, dataSource);
+
+            // Exportar el informe a bytes en PDF
+            byte[] informeBytes = JasperExportManager.exportReportToPdf(jasperPrint);
+
+            // Convertir los bytes del informe a Base64
+            String base64Encoded = java.util.Base64.getEncoder().encodeToString(informeBytes);
+
+            // Agregar el informe codificado en Base64 al modelo
+            model.addAttribute("pdfContent", base64Encoded);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+		return "reporteLibros";
+	}
+	@GetMapping("/reporteLibrosXCategoria")
+	public String reporteLibrosXCategoria(@RequestParam(name = "categoria", required = false) Integer categoriaId, Model model) {
+	    List<Categorias> categoriasList = categoriaRepository.findAll();
+	    model.addAttribute("categorias", categoriasList);
+	    if (categoriaId == null) {
+	        return "reporteLibrosXCategoria";
+	    }
+	    try {
+	    	// Cargar el informe JRXML y compilarlo
+	        ClassPathResource resource = new ClassPathResource("static/reporteLibros.jrxml");
+	        JasperReport jasperReport = JasperCompileManager.compileReport(resource.getInputStream());
+	        // Obtener datos
+	        List<Productos> productos = productoRepository.findByIdCategoria(categoriaId);
+
+	        if (productos.isEmpty()) {
+	            return "noDataFound"; 
+	        }
+	        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(productos);
+	        // Parametros para el informe
+	        Map<String, Object> params = new HashMap<>();
+	    	// Generar el informe
+	        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, dataSource);
+	        // Exportar el informe a bytes en PDF
+	        byte[] informeBytes = JasperExportManager.exportReportToPdf(jasperPrint);
+	        // Convertir los bytes del informe a Base64
+	        String base64Encoded = java.util.Base64.getEncoder().encodeToString(informeBytes);
+	        // Agregar el informe codificado en Base64 al modelo
+	        model.addAttribute("pdfContent", base64Encoded);
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return "reporteLibrosXCategoria";
+	    }
+
+	    return "reporteLibrosXCategoria";
+	}
+	//Agregar
+	@GetMapping("/agregar/{idprod}")
+	public String agregar(Model model,@PathVariable(name="idprod",required = true) int idprod,HttpSession session) {
+		Productos producto = productoRepository.findById(idprod).orElse(null);
+		List<DetalleBoleta> carrito = (List<DetalleBoleta>)model.getAttribute("carrito");
+		if (carrito == null) {
+		        carrito = new ArrayList<>();
+		}
+		BigDecimal total = new BigDecimal(0);
+		boolean existe = false;
+		DetalleBoleta detalle = new DetalleBoleta();
+		LocalDate fechaActual = LocalDate.now();	
+		if(producto != null) {
+			detalle.setProducto(producto);
+			detalle.setCantidad(1);
+			detalle.setPrecioVenta(producto.getPrecio());
+		}
+		// Si el carrito esta vacio
+		if(carrito.size() == 0) {
+			carrito.add(detalle);
+		}else {
+				for(DetalleBoleta d : carrito) {
+					if(d.getProducto().getIdprod() == producto.getIdprod()) {
+						d.setCantidad(d.getCantidad() + 1);
+						// Obtener el precio y la cantidad
+				        BigDecimal precioProducto = d.getProducto().getPrecio();
+				        BigDecimal cantidad = new BigDecimal(d.getCantidad());
+				        BigDecimal precioVenta = precioProducto.multiply(cantidad);
+						d.setPrecioVenta(precioVenta);
+						existe = true;
+					}
+				}
+				if(!existe)carrito.add(detalle);
+		}
+		// Calculando la suma de sub-totales
+		for (DetalleBoleta d : carrito) {			
+		    total = total.add(d.getPrecioVenta());
+		}
+		// Guardar valores en la sesion y pasarlos a la vista
+		model.addAttribute("total", total);
+		model.addAttribute("carrito", carrito);
+		return "redirect:/carrito";
+	}
+	//Quitar
+	@GetMapping("/quitar/{idprod}")
+	public String quitar(Model model, @PathVariable(name = "idprod", required = true) int idprod, HttpSession session) {
+	    List<DetalleBoleta> carrito = (List<DetalleBoleta>) model.getAttribute("carrito");
+	    if (carrito != null) {
+	        // Buscar el producto con el id proporcionado en el carrito
+	        Optional<DetalleBoleta> optionalDetalle = carrito.stream()
+	                .filter(detalle -> detalle.getProducto().getIdprod() == idprod)
+	                .findFirst();
+	        if (optionalDetalle.isPresent()) {
+	            DetalleBoleta detalle = optionalDetalle.get();	            
+	            // Si hay mas de 1 producto de este tipo, reducir la cantidad y recalcular el precio
+	            if (detalle.getCantidad() > 1) {
+	                detalle.setCantidad(detalle.getCantidad() - 1);
+	                BigDecimal precioProducto = detalle.getProducto().getPrecio();
+	                BigDecimal cantidad = new BigDecimal(detalle.getCantidad());
+	                BigDecimal precioVenta = precioProducto.multiply(cantidad);
+	                detalle.setPrecioVenta(precioVenta);
+	            } else {
+	                // Si queda 1 producto, eliminarlo del carrito
+	                carrito.remove(detalle);
+	            }
+	            // Recalcular el total
+	            BigDecimal total = new BigDecimal(0);
+	            for (DetalleBoleta d : carrito) {
+	                total = total.add(d.getPrecioVenta());
+	            }
+	            // Actualizar los valores en la sesion
+	            model.addAttribute("total", total);
+	            model.addAttribute("carrito", carrito);
+	        }
+	    }
+	    return "redirect:/carrito";
+	}
+	//Pagar
+	@GetMapping("/pagar")
+	public String pagar(Model model, HttpSession session) {
+	    List<DetalleBoleta> carrito = (List<DetalleBoleta>) session.getAttribute("carrito");
+	    BigDecimal total = (BigDecimal) model.getAttribute("total");
+	    LocalDate tiempoActual = LocalDate.now();
+	    //Usuario
+	    String nombreUsuario = (String) session.getAttribute("nombreUsuario");
+	    List<Usuarios> usuariosList = usuarioRepository.findByUsuario(nombreUsuario);
+	    Usuarios usuario = usuariosList.isEmpty() ? null : usuariosList.get(0);
+	    //Guardar
+	    Boletas boleta = new Boletas(usuario,tiempoActual,total);
+	    boletaRepository.save(boleta);
+	    
+	    //Limpiar
+	    List<DetalleBoleta> carritoL = new ArrayList<>();
+	    model.addAttribute("total", BigDecimal.ZERO);
+	    model.addAttribute("carrito", carritoL);
+	    return "redirect:/carrito";
+	}
 }

@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class LoginController {
@@ -26,7 +27,7 @@ public class LoginController {
     @PostMapping("/login")
     public String login(@RequestParam("usuario") String usuario,
                         @RequestParam("clave") String clave,
-                        Model model) {
+                        Model model, HttpSession session) {
         List<Usuarios> usuarios = usuarioRepository.findByUsuario(usuario);
 
         if (usuarios.isEmpty()) {
@@ -44,6 +45,7 @@ public class LoginController {
         }
 
         if (usuarioValido) {
+        	session.setAttribute("nombreUsuario", usuario);
             return "redirect:/inicio";
         } else {
             model.addAttribute("error", "Contraseña incorrecta");
